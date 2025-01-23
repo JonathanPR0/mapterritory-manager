@@ -10,7 +10,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { toast } from "@/hooks/use-toast";
 import { Ban, Save } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "../../ui/button";
@@ -30,14 +29,14 @@ const TerritorySideInfo = ({ removeFeature }: { removeFeature: () => void }) => 
     numero: "",
     coordinates,
   });
-  const handleCopyLink = () => {
-    const link = "TESTE";
-    navigator.clipboard.writeText(link);
-    toast({
-      title: "Link copied!",
-      description: "The territory link has been copied to your clipboard.",
-    });
-  };
+  // const handleCopyLink = () => {
+  //   const link = "TESTE";
+  //   navigator.clipboard.writeText(link);
+  //   toast({
+  //     title: "Link copied!",
+  //     description: "The territory link has been copied to your clipboard.",
+  //   });
+  // };
 
   function onSubmit(data: ModeloTerritoryFormData) {
     console.log(data);
