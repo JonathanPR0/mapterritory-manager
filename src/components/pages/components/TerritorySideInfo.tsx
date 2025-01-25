@@ -69,11 +69,29 @@ const TerritorySideInfo = ({ removeFeature }: { removeFeature: () => void }) => 
             ref={formRef}
             className="flex flex-col gap-2 py-4 z-[100]"
           >
-            <FormInput
-              name="nome"
-              label="Nome"
-              className={"flex-1 min-w-[15ch]"}
+            <FormSelect
+              name="id_bairo"
+              label="Bairro"
               control={form.control}
+              options={[
+                {
+                  value: "1",
+                  label: "Passagem de areia",
+                },
+                {
+                  value: "2",
+                  label: "Rosa dos Ventos",
+                },
+                {
+                  value: "3",
+                  label: "Bela Vista",
+                },
+                {
+                  value: "4",
+                  label: "Santa Teresa",
+                },
+              ]}
+              className="flex-1"
             />
             <FormInput
               name="numero"
@@ -109,7 +127,7 @@ const TerritorySideInfo = ({ removeFeature }: { removeFeature: () => void }) => 
             />
           </form>
         </Form>
-        <SheetFooter>
+        <SheetFooter className="flex gap-2">
           <SheetClose asChild>
             <Button variant={"secondary"} onClick={removeFeature}>
               <Ban size={18} className="me-2" />

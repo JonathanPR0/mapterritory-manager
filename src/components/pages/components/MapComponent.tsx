@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { Pen, PenOff, Search, Trash } from "lucide-react";
+import { Expand, Pen, PenOff, Search, Shrink, Trash } from "lucide-react";
 import { Feature } from "ol";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -24,6 +24,7 @@ const MapComponent = ({ canEdit }: { canEdit?: boolean }) => {
   const [map, setMap] = useState<Map | null>(null);
   const [draw, setDraw] = useState<Draw | null>(null);
   const [vectorSource] = useState(new VectorSource());
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   // Camada vetorial inicializada diretamente
   const vectorLayer = useMemo(
@@ -83,7 +84,7 @@ const MapComponent = ({ canEdit }: { canEdit?: boolean }) => {
 
           if (territory) {
             console.log("Território selecionado:", territory);
-            changeTerritoryPropsColor(feature, "rgba(255, 0, 0, 0.5)");
+            // changeTerritoryPropsColor(feature, "rgba(255, 0, 0, 0.5)");
           }
         } else {
           setSelectedFeature(null);
@@ -233,6 +234,27 @@ const MapComponent = ({ canEdit }: { canEdit?: boolean }) => {
     }
   };
 
+  function toggleFullScreen() {
+    if (!mapRef.current) {
+      console.error("Elemento do mapa não encontrado.");
+      return;
+    }
+
+    if (!document.fullscreenElement) {
+      // Solicitar tela cheia
+      if (mapRef.current.requestFullscreen) {
+        mapRef.current.requestFullscreen();
+        setIsFullScreen(true);
+      }
+    } else {
+      // Sair do modo de tela cheia
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullScreen(false);
+      }
+    }
+  }
+
   const handleSearch = async () => {
     if (!searchQuery) return;
 
@@ -330,6 +352,11 @@ const MapComponent = ({ canEdit }: { canEdit?: boolean }) => {
               </Button>
             </>
           )}
+          <div className="absolute bottom-2 right-2 z-50">
+            <Button variant={"secondary"} size="icon" onClick={toggleFullScreen}>
+              {isFullScreen ? <Shrink className="h-5 w-5" /> : <Expand className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
       </div>
       <TerritorySideInfo removeFeature={removeSelectedFeature} />

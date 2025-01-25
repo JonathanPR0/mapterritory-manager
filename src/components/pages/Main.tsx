@@ -1,10 +1,15 @@
+import { useTheme } from "@/providers/theme-provider";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Cadastro from "./cadastro/Cadastro";
 import Territory from "./territory/Territory";
 
 export default function Main() {
+  const { theme, setTheme } = useTheme();
+
   return (
-    <main className="h-full w-full bg-background py-8 px-4">
+    <main className="flex flex-col gap-4 h-full w-full bg-background py-8 px-4 ">
       <Tabs defaultValue="territorio" className="w-full">
         <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 my-4 ">
           <TabsTrigger value="territorio" className="text-sm">
@@ -25,6 +30,15 @@ export default function Main() {
           <Cadastro />
         </TabsContent>
       </Tabs>
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="secondary"
+          size="icon"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        >
+          {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+        </Button>
+      </div>
     </main>
   );
 }
