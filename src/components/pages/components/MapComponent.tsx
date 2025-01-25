@@ -175,14 +175,14 @@ const MapComponent = ({ canEdit }: { canEdit?: boolean }) => {
     }
   }, [territories, map, vectorSource]);
 
-  const changeTerritoryPropsColor = (feature: Feature<Polygon>, color: string) => {
-    feature.setStyle(
-      new Style({
-        fill: new Fill({ color }),
-        stroke: new Stroke({ color: "red", width: 2 }),
-      })
-    );
-  };
+  // const changeTerritoryPropsColor = (feature: Feature<Polygon>, color: string) => {
+  //   feature.setStyle(
+  //     new Style({
+  //       fill: new Fill({ color }),
+  //       stroke: new Stroke({ color: "red", width: 2 }),
+  //     })
+  //   );
+  // };
 
   const removeSelectedFeature = useCallback(() => {
     if (selectedFeature) {
